@@ -3,6 +3,7 @@ import axios from 'axios'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import * as S from '../styles/pages/home'
 
 interface Props {
   res: ApiData
@@ -71,24 +72,29 @@ export default function Home(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        {characters.map((character) => (
-          <div key={character.id}>
-            <Image
-              loader={() => character.image}
-              src={character.image}
-              width={300}
-              height={300}
-              alt="character"
-            />
-            <p>{character.name}</p>
-          </div>
-        ))}
-        <button onClick={handlePrevPage} disabled={disablePrevButton}>
-          Anterior
-        </button>
-        <button onClick={handleNextPage} disabled={disableNextButton}>
-          Proximo
-        </button>
+        <S.CharContainer>
+          {characters.map((character) => (
+            <S.CharContent href={character.url} key={character.id}>
+              <Image
+                loader={() => character.image}
+                src={character.image}
+                unoptimized
+                width={300}
+                height={300}
+                alt={character.name}
+              />
+              <span>{character.name}</span>
+            </S.CharContent>
+          ))}
+        </S.CharContainer>
+        <S.PaginationContainer>
+          <S.BackButton onClick={handlePrevPage} disabled={disablePrevButton}>
+            Anterior
+          </S.BackButton>
+          <S.NextButton onClick={handleNextPage} disabled={disableNextButton}>
+            Proximo
+          </S.NextButton>
+        </S.PaginationContainer>
       </main>
     </>
   )
