@@ -1,6 +1,52 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 
+export const FilterForm = styled.form`
+  margin: 26px auto 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 270px;
+  gap: 8px;
+
+  > div {
+    width: 100%;
+    > input {
+      width: 100%;
+
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+    }
+    > span {
+      font-size: ${(props) => props.theme.fontSizes.sm};
+      color: ${(props) => props.theme.colors.orange};
+    }
+  }
+
+  > button {
+    border-radius: 8px;
+    border: none;
+    color: ${(props) => props.theme.colors.gray900};
+    font-size: ${(props) => props.theme.fontSizes.sm};
+    background: ${(props) => props.theme.colors.blue};
+    padding: 9px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+`
+
+export const FilteredContainer = styled.form`
+  margin: 26px auto 0;
+  text-align: center;
+  padding: 8px;
+  font-size: ${(props) => props.theme.fontSizes.sm};
+`
+
 export const CharContainer = styled.div`
   display: flex;
   align-items: center;
@@ -30,6 +76,7 @@ export const CharContent = styled(Link)`
     display: block;
     padding: 1rem;
     text-align: center;
+    font-size: ${(props) => props.theme.fontSizes.md};
   }
 `
 

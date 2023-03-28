@@ -3,6 +3,9 @@ import axios from 'axios'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { SubmitHandler } from 'react-hook-form/dist/types'
+import { toast } from 'react-toastify'
 import * as S from '../styles/pages/home'
 
 interface Props {
@@ -17,11 +20,22 @@ interface CurrentInfo {
   current: string
 }
 
+interface Inputs {
+  query: string
+}
+
 const API_URL = 'https://rickandmortyapi.com/api/character'
 
 export default function Home(props: Props) {
   const { info, results = [] } = props.res
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>()
+
+  const [filteredBy, setFilteredBy] = useState<string>('')
   const [characters, setCharacters] = useState<Character[]>(results)
   const [currentInfo, setCurrentInfo] = useState<CurrentInfo>({
     ...info,
@@ -44,20 +58,33 @@ export default function Home(props: Props) {
     })
   }
 
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const filteredQuery = `${API_URL}/?name=${data.query}`
+    setFilteredBy(data.query)
+    setCurrentInfo({ ...currentInfo, current: filteredQuery })
+  }
+
   useEffect(() => {
     if (current === API_URL) return
 
     async function changePage() {
-      const changePage = await axios.get<ApiData>(current).then(({ data }) => {
-        return data
-      })
+      const changePage = await axios
+        .get<ApiData>(current)
+        .then(({ data }) => {
+          return data
+        })
+        .catch(() => {
+          toast.error('Personagem não encontrado!')
+        })
 
-      setCurrentInfo({
-        ...changePage.info,
-        current,
-      })
+      if (changePage) {
+        setCurrentInfo({
+          ...changePage.info,
+          current,
+        })
 
-      setCharacters([...changePage.results])
+        setCharacters([...changePage.results])
+      }
     }
 
     changePage()
@@ -72,6 +99,24 @@ export default function Home(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <S.FilterForm onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <input
+              type="text"
+              {...register('query', { required: true })}
+              placeholder="Filtrar por nome"
+            />
+            {errors.query && <span>Preencha o campo acima.</span>}
+          </div>
+          <button type="submit">B</button>
+        </S.FilterForm>
+
+        {!!filteredBy.length && (
+          <S.FilteredContainer>
+            <span>Filtrando por: {filteredBy}</span>
+          </S.FilteredContainer>
+        )}
+
         <S.CharContainer>
           {characters.map((character) => (
             <S.CharContent href={character.url} key={character.id}>
