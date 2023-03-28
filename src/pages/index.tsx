@@ -1,14 +1,66 @@
-import { ApiData } from '@/@types/Api'
+import { ApiData, Character } from '@/@types/Api'
 import axios from 'axios'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 interface Props {
-  res: string
+  res: ApiData
 }
 
+interface CurrentInfo {
+  count: number
+  pages: number
+  next: string | null
+  prev: string | null
+  current: string
+}
+
+const API_URL = 'https://rickandmortyapi.com/api/character'
+
 export default function Home(props: Props) {
-  const characters: ApiData = JSON.parse(props.res)
+  const { info, results = [] } = props.res
+
+  const [characters, setCharacters] = useState<Character[]>(results)
+  const [currentInfo, setCurrentInfo] = useState<CurrentInfo>({
+    ...info,
+    current: API_URL,
+  })
+
+  const { current } = currentInfo
+  const disablePrevButton = currentInfo.prev === null
+  const disableNextButton = currentInfo.next === null
+
+  const handleNextPage = () => {
+    setCurrentInfo((prevInfo: CurrentInfo) => {
+      return { ...prevInfo, current: prevInfo.next ? prevInfo.next : current }
+    })
+  }
+
+  const handlePrevPage = () => {
+    setCurrentInfo((prevInfo: CurrentInfo) => {
+      return { ...prevInfo, current: prevInfo.prev ? prevInfo.prev : current }
+    })
+  }
+
+  useEffect(() => {
+    if (current === API_URL) return
+
+    async function changePage() {
+      const changePage = await axios.get<ApiData>(current).then(({ data }) => {
+        return data
+      })
+
+      setCurrentInfo({
+        ...changePage.info,
+        current,
+      })
+
+      setCharacters([...changePage.results])
+    }
+
+    changePage()
+  }, [current])
 
   return (
     <>
@@ -19,7 +71,7 @@ export default function Home(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        {characters.results.map((character) => (
+        {characters.map((character) => (
           <div key={character.id}>
             <Image
               loader={() => character.image}
@@ -31,21 +83,26 @@ export default function Home(props: Props) {
             <p>{character.name}</p>
           </div>
         ))}
+        <button onClick={handlePrevPage} disabled={disablePrevButton}>
+          Anterior
+        </button>
+        <button onClick={handleNextPage} disabled={disableNextButton}>
+          Proximo
+        </button>
       </main>
     </>
   )
 }
 
 export async function getStaticProps() {
-  const res = await axios
-    .get<ApiData>('https://rickandmortyapi.com/api/character')
-    .then(({ data }) => {
-      return JSON.stringify(data)
-    })
+  const res = await axios.get<ApiData>(API_URL).then(({ data }) => {
+    return data
+  })
 
   return {
     props: {
       res,
     },
+    revalidate: 60 * 60 * 2, // 2 hours,
   }
 }

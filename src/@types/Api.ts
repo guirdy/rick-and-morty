@@ -19,12 +19,14 @@ export interface Character {
   created: string
 }
 
+export interface PageInfo {
+  count: number
+  pages: number
+  next: string | null
+  prev: string | null
+}
+
 export interface ApiData {
-  info: {
-    count: number
-    pages: number
-    next: string | null
-    prev: string | null
-  }
+  info: PageInfo
   results: Character[]
 }
