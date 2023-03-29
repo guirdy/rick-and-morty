@@ -6,7 +6,9 @@ export const FilterForm = styled.form`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  max-width: 270px;
+  max-width: 320px;
+  width: 100%;
+  padding: 0 26px;
   gap: 8px;
 
   > div {
@@ -25,12 +27,14 @@ export const FilterForm = styled.form`
   }
 
   > button {
+    display: flex;
+    align-items: center;
     border-radius: 8px;
     border: none;
     color: ${(props) => props.theme.colors.gray900};
-    font-size: ${(props) => props.theme.fontSizes.sm};
+    font-size: ${(props) => props.theme.fontSizes.md};
     background: ${(props) => props.theme.colors.blue};
-    padding: 9px 16px;
+    padding: 9px 14px;
     cursor: pointer;
     transition: all 0.2s;
 
@@ -74,6 +78,7 @@ export const CharContainer = styled.div`
   align-items: center;
   justify-content: center;
   max-width: 1080px;
+  width: 100%;
   margin: auto;
   padding: 26px;
   flex-wrap: wrap;

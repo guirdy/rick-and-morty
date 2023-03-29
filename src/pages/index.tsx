@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { SubmitHandler } from 'react-hook-form/dist/types'
 import { toast } from 'react-toastify'
-import { IoCloseSharp } from 'react-icons/io5'
+import { IoSearch, IoCloseSharp } from 'react-icons/io5'
 import * as S from '../styles/pages/home'
 
 interface Props {
@@ -30,6 +30,7 @@ const API_URL = 'https://rickandmortyapi.com/api/character'
 export default function Home(props: Props) {
   const { info, results = [] } = props.res
 
+  // Hooks
   const {
     register,
     reset,
@@ -44,14 +45,15 @@ export default function Home(props: Props) {
     current: API_URL,
   })
 
+  // Constants
   const { current } = currentInfo
   const disablePrevButton = currentInfo.prev === null
   const disableNextButton = currentInfo.next === null
   const currentPageNumber = current.includes('page=')
     ? Number(current.split('page=')[1])
     : 1
-  console.log(currentPageNumber)
 
+  // Functions
   const handleNextPage = () => {
     setCurrentInfo((prevInfo: CurrentInfo) => {
       return { ...prevInfo, current: prevInfo.next ? prevInfo.next : current }
@@ -120,17 +122,19 @@ export default function Home(props: Props) {
             <input
               type="text"
               {...register('query', { required: true })}
-              placeholder="Filtrar por nome"
+              placeholder="Filter by name"
             />
-            {errors.query && <span>Preencha o campo acima.</span>}
+            {errors.query && <span>Fill in the field above.</span>}
           </div>
-          <button type="submit">B</button>
+          <button type="submit">
+            <IoSearch />
+          </button>
         </S.FilterForm>
 
         {!!filteredBy.length && (
           <S.FilteredContainer>
             <span>
-              Filtrando por:{' '}
+              Filtered by:{' '}
               <S.FilterSpan>
                 {filteredBy}{' '}
                 <S.ClearButton type="button" onClick={handleClearFilter}>
@@ -158,7 +162,7 @@ export default function Home(props: Props) {
         </S.CharContainer>
         <S.PaginationContainer>
           <S.BackButton onClick={handlePrevPage} disabled={disablePrevButton}>
-            Anterior
+            Prev
           </S.BackButton>
           <S.PageCount
             type="text"
@@ -166,7 +170,7 @@ export default function Home(props: Props) {
             value={`${currentPageNumber} / ${currentInfo.pages}`}
           />
           <S.NextButton onClick={handleNextPage} disabled={disableNextButton}>
-            Proximo
+            Next
           </S.NextButton>
         </S.PaginationContainer>
       </main>
