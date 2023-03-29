@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { SubmitHandler } from 'react-hook-form/dist/types'
 import { toast } from 'react-toastify'
+import { IoCloseSharp } from 'react-icons/io5'
 import * as S from '../styles/pages/home'
 
 interface Props {
@@ -31,6 +32,7 @@ export default function Home(props: Props) {
 
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>()
@@ -58,8 +60,18 @@ export default function Home(props: Props) {
     })
   }
 
+  const handleClearFilter = () => {
+    const resetPage = `${API_URL}/?page=1`
+
+    setFilteredBy('')
+    setCurrentInfo((prevInfo: CurrentInfo) => {
+      return { ...prevInfo, current: resetPage }
+    })
+  }
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const filteredQuery = `${API_URL}/?name=${data.query}`
+    reset()
     setFilteredBy(data.query)
     setCurrentInfo({ ...currentInfo, current: filteredQuery })
   }
@@ -113,7 +125,15 @@ export default function Home(props: Props) {
 
         {!!filteredBy.length && (
           <S.FilteredContainer>
-            <span>Filtrando por: {filteredBy}</span>
+            <span>
+              Filtrando por:{' '}
+              <S.FilterSpan>
+                {filteredBy}{' '}
+                <S.ClearButton type="button" onClick={handleClearFilter}>
+                  <IoCloseSharp />
+                </S.ClearButton>
+              </S.FilterSpan>
+            </span>
           </S.FilteredContainer>
         )}
 
