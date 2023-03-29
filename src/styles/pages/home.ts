@@ -57,6 +57,7 @@ export const FilterSpan = styled.span`
   background: ${(props) => props.theme.colors.gray800};
   padding: 8px;
   border-radius: 16px;
+  margin-top: 8px;
 `
 
 export const ClearButton = styled.button`
@@ -106,7 +107,7 @@ export const PaginationContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin: auto;
-  gap: 26px;
+  gap: 12px;
   margin-bottom: 56px;
 `
 
@@ -127,6 +128,16 @@ export const BackButton = styled.button`
     opacity: 0.5;
     cursor: not-allowed;
   }
+`
+
+export const PageCount = styled.input`
+  padding: 10px;
+  max-width: 75px;
+  text-align: center;
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  color: ${(props) => props.theme.colors.gray100};
+  background: ${(props) => props.theme.colors.gray800};
+  border: none;
 `
 
 export const NextButton = styled.button`

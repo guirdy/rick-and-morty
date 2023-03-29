@@ -47,6 +47,10 @@ export default function Home(props: Props) {
   const { current } = currentInfo
   const disablePrevButton = currentInfo.prev === null
   const disableNextButton = currentInfo.next === null
+  const currentPageNumber = current.includes('page=')
+    ? Number(current.split('page=')[1])
+    : 1
+  console.log(currentPageNumber)
 
   const handleNextPage = () => {
     setCurrentInfo((prevInfo: CurrentInfo) => {
@@ -156,6 +160,11 @@ export default function Home(props: Props) {
           <S.BackButton onClick={handlePrevPage} disabled={disablePrevButton}>
             Anterior
           </S.BackButton>
+          <S.PageCount
+            type="text"
+            disabled
+            value={`${currentPageNumber} / ${currentInfo.pages}`}
+          />
           <S.NextButton onClick={handleNextPage} disabled={disableNextButton}>
             Proximo
           </S.NextButton>
