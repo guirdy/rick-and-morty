@@ -25,7 +25,7 @@ interface Inputs {
   query: string
 }
 
-const API_URL = 'https://rickandmortyapi.com/api/character'
+export const API_URL = 'https://rickandmortyapi.com/api/character'
 
 export default function Home(props: Props) {
   const { info, results = [] } = props.res
@@ -147,7 +147,10 @@ export default function Home(props: Props) {
 
         <S.CharContainer>
           {characters.map((character) => (
-            <S.CharContent href={character.url} key={character.id}>
+            <S.CharContent
+              href={`/character/${character.id}`}
+              key={character.id}
+            >
               <Image
                 loader={() => character.image}
                 src={character.image}
