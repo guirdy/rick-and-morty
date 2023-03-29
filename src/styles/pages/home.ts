@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import styled from 'styled-components'
 
 export const FilterForm = styled.form`
@@ -83,28 +82,6 @@ export const CharContainer = styled.div`
   padding: 26px;
   flex-wrap: wrap;
   gap: 26px;
-`
-
-export const CharContent = styled(Link)`
-  border: 2px solid ${(props) => props.theme.colors.green100};
-  border-radius: 16px;
-  overflow: hidden;
-  text-decoration: none;
-  color: ${(props) => props.theme.colors.gray100};
-  transition: all 0.2s;
-  margin-bottom: 0;
-  background: ${(props) => props.theme.colors.gray800};
-
-  &:hover {
-    transform: translateY(-03%);
-  }
-
-  > span {
-    display: block;
-    padding: 1rem;
-    text-align: center;
-    font-size: ${(props) => props.theme.fontSizes.md};
-  }
 `
 
 export const PaginationContainer = styled.div`

@@ -1,11 +1,25 @@
-import { Character } from '@/@types/Api'
-import { API_URL } from '@/pages'
-import axios from 'axios'
-import { GetStaticPaths, GetStaticProps } from 'next'
+// Next
 import Image from 'next/image'
-import React from 'react'
+import { GetStaticPaths, GetStaticProps } from 'next'
+
+// React
+import { useContext } from 'react'
+
+// Context
+import { FavoriteContext } from '@/context/CharContext'
+
+// Libs
+import axios from 'axios'
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import { MdOutlineArrowBackIosNew } from 'react-icons/md'
 
+// Types
+import { Character } from '@/@types/Api'
+
+// Const
+import { API_URL } from '@/pages'
+
+// Styles
 import * as S from '../../styles/pages/character'
 
 interface Props {
@@ -13,12 +27,41 @@ interface Props {
 }
 
 export default function CharacterPage({ character }: Props) {
+  // Context
+  const { addToFavorite, removeFavoriteChar, checkIfItemAlreadyExists } =
+    useContext(FavoriteContext)
+
+  // Functions
+  const handleAddOrRemoveFavorite = (char: Character) => {
+    if (checkIfItemAlreadyExists(char.id) > -1) {
+      removeFavoriteChar(char.id)
+    } else {
+      addToFavorite(char)
+    }
+  }
+
   return (
     <>
       <S.CharacterContainer>
-        <S.GoBack href="/">
-          <MdOutlineArrowBackIosNew /> Back
-        </S.GoBack>
+        <S.HeaderContainer>
+          <S.GoBack href="/">
+            <MdOutlineArrowBackIosNew /> Back
+          </S.GoBack>
+
+          <S.AddFavoriteButton
+            onClick={(event) => {
+              event.preventDefault()
+              event.stopPropagation()
+              handleAddOrRemoveFavorite(character)
+            }}
+          >
+            {checkIfItemAlreadyExists(character.id) > -1 ? (
+              <AiFillStar />
+            ) : (
+              <AiOutlineStar />
+            )}
+          </S.AddFavoriteButton>
+        </S.HeaderContainer>
         <Image
           loader={() => character.image}
           src={character.image}

@@ -5,16 +5,19 @@ import { defaultTheme } from '@/styles/themes/default'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Header } from '@/components/Header'
+import { FavoriteContextProvider } from '@/context/CharContext'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <>
-        <Header />
-        <Component {...pageProps} />
-      </>
-      <ToastContainer />
-      <GlobalStyle />
-    </ThemeProvider>
+    <FavoriteContextProvider>
+      <ThemeProvider theme={defaultTheme}>
+        <>
+          <Header />
+          <Component {...pageProps} />
+        </>
+        <ToastContainer />
+        <GlobalStyle />
+      </ThemeProvider>
+    </FavoriteContextProvider>
   )
 }
