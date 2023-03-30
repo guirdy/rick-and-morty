@@ -11,6 +11,7 @@ export const FavoritesContent = styled.div`
   justify-content: center;
   flex-direction: column;
   margin: auto;
+  min-height: calc(100vh - 260px);
 
   h2 {
     font-weight: 700;
@@ -33,6 +34,15 @@ export const FavoritesContent = styled.div`
       font-size: ${(props) => props.theme.fontSizes.sm};
     }
   }
+`
+
+export const Empty = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 26px;
+  height: 100%;
+  width: 100%;
 `
 
 export const GoBack = styled(Link)`

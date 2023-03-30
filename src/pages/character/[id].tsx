@@ -1,5 +1,6 @@
 // Next
 import Image from 'next/image'
+import Head from 'next/head'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
 // React
@@ -42,6 +43,9 @@ export default function CharacterPage({ character }: Props) {
 
   return (
     <>
+      <Head>
+        <title>Rick and Morty - {character.name}</title>
+      </Head>
       <S.CharacterContainer>
         <S.HeaderContainer>
           <S.GoBack href="/">

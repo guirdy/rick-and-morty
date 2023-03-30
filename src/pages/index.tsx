@@ -11,12 +11,14 @@ import { useForm } from 'react-hook-form'
 import { IoSearch, IoCloseSharp } from 'react-icons/io5'
 import { SubmitHandler } from 'react-hook-form/dist/types'
 
+// Components
+import { CharCard } from '../components/CharCard'
+
 // Types
-import { ApiData, Character } from '@/@types/Api'
+import { ApiData, Character } from '../@types/Api'
 
 // Styles
 import * as S from '../styles/pages/home'
-import { CharCard } from '@/components/CharCard'
 
 interface Props {
   res: ApiData

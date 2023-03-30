@@ -8,10 +8,10 @@ import React, { useContext } from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
 // Context
-import { FavoriteContext } from '@/context/CharContext'
+import { FavoriteContext } from '../context/CharContext'
 
 // Types
-import { Character } from '@/@types/Api'
+import { Character } from '../@types/Api'
 
 // Styles
 import * as S from '../styles/components/CharCard'

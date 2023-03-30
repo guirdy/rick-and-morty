@@ -5,10 +5,12 @@ import { createContext, ReactNode, useEffect, useState } from 'react'
 import { Character } from '@/@types/Api'
 
 interface FavoriteContextData {
+  theme: boolean
   favoritesChar: Character[]
   addToFavorite: (char: Character) => void
   checkIfItemAlreadyExists: (char: number) => number
   removeFavoriteChar: (charId: number) => void
+  changeTheme: () => void
 }
 
 interface FavoriteContextProviderProps {
@@ -21,6 +23,11 @@ export function FavoriteContextProvider({
   children,
 }: FavoriteContextProviderProps) {
   const [favoritesChar, setFavoritesChar] = useState<Character[]>([])
+  const [theme, setTheme] = useState<boolean>(true)
+
+  function changeTheme() {
+    setTheme(!theme)
+  }
 
   function addToFavorite(character: Character) {
     const check = checkIfItemAlreadyExists(character.id)
@@ -63,6 +70,8 @@ export function FavoriteContextProvider({
         addToFavorite,
         checkIfItemAlreadyExists,
         removeFavoriteChar,
+        theme,
+        changeTheme,
       }}
     >
       {children}

@@ -16,7 +16,7 @@ export const FilterForm = styled.form`
       width: 100%;
 
       padding: 8px;
-      border: none;
+      border: 1px solid ${(props) => props.theme.colors.green100};
       border-radius: 8px;
     }
     > span {

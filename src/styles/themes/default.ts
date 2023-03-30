@@ -14,6 +14,35 @@ export const defaultTheme = {
     orange: '#F29901',
     yellow: '#F8FE76',
     blue: '#B2EAE4',
+    blue500: '#183153',
+  },
+
+  fontSizes: {
+    sm: '0.875rem',
+    md: '1.125rem',
+    lg: '1.25rem',
+    xl: '1.5rem',
+    '2xl': '2rem',
+  },
+}
+
+export const lightTheme = {
+  colors: {
+    white: '#FFF',
+    background: '#FAFAFA',
+
+    gray100: '#121214',
+    gray300: '#202024',
+    gray800: '#d7d7d7',
+    gray900: '#FAFAFA',
+
+    green100: '#006400',
+    green800: '#39FF14',
+
+    orange: '#F29901',
+    yellow: '#9aa100',
+    blue: '#0bb7c6',
+    blue500: '#183153',
   },
 
   fontSizes: {
