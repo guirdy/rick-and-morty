@@ -14,6 +14,8 @@ Developed with `NextJS`, `Typescript` and `Styled-Components`.
   <img src="./.github/print.jpg" >
 </p>
 
+See the deploy [HERE](https://rick-and-morty-gui-leandro.vercel.app/)
+
 ## 💻 Run the project
 
 ```bash
