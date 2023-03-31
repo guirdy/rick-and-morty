@@ -61,7 +61,7 @@ export default function Home(props: Props) {
   const disablePrevButton = currentInfo.prev === null
   const disableNextButton = currentInfo.next === null
   const currentPageNumber = current.includes('page=')
-    ? Number(current.split('page=')[1])
+    ? Number(new URL(current).searchParams.get('page'))
     : 1
 
   // Functions
@@ -87,7 +87,7 @@ export default function Home(props: Props) {
   }
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    const filteredQuery = `${API_URL}/?name=${data.query}`
+    const filteredQuery = `${API_URL}/?page=1&name=${data.query}`
     reset()
     setFilteredBy(data.query)
     setCurrentInfo({ ...currentInfo, current: filteredQuery })
