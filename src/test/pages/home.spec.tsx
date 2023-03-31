@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'styled-components'
 import { FavoriteContextProvider } from '../../context/CharContext'
-import Home from '../../pages'
+import Home, { getStaticProps } from '../../pages'
 import { render, screen } from '@testing-library/react'
 import { defaultTheme } from '../../styles/themes/default'
 
@@ -50,5 +50,13 @@ describe('Home page', () => {
     )
 
     expect(screen.getByText('Rick Sanchez')).toBeInTheDocument()
+  })
+
+  it('should return characters', async () => {
+    const result = await getStaticProps()
+    const characters = result.props.res.results
+
+    expect(characters).toBeDefined()
+    expect(characters.length).toBeGreaterThan(0)
   })
 })
