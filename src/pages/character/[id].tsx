@@ -7,7 +7,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { useContext } from 'react'
 
 // Context
-import { FavoriteContext } from '@/context/CharContext'
+import { FavoriteContext } from '../../context/CharContext'
 
 // Libs
 import axios from 'axios'
@@ -15,10 +15,10 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import { MdOutlineArrowBackIosNew } from 'react-icons/md'
 
 // Types
-import { Character } from '@/@types/Api'
+import { Character } from '../../@types/Api'
 
 // Const
-import { API_URL } from '@/pages'
+import { API_URL } from '../../pages'
 
 // Styles
 import * as S from '../../styles/pages/character'

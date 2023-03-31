@@ -4,6 +4,8 @@ This project is a repository of `Rick and Morty's characters`, using its [API](h
 
 Developed with `NextJS`, `Typescript` and `Styled-Components`.
 
+Automated testing with `Jest`.
+
 **Features:**
 - Context API
 - [Rick and Morty API](https://rickandmortyapi.com/documentation/#character)
@@ -19,6 +21,9 @@ Developed with `NextJS`, `Typescript` and `Styled-Components`.
 ```bash
 # Install the dependencies
 $ npm install
+
+# Run the Jest tests
+$ npm run test
 
 # Run the application
 $ npm run dev

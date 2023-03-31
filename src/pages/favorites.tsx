@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useContext } from 'react'
 
 // Context
-import { FavoriteContext } from '@/context/CharContext'
+import { FavoriteContext } from '../context/CharContext'
 
 // Libs
 import { MdOutlineArrowBackIosNew } from 'react-icons/md'

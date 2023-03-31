@@ -2,7 +2,7 @@
 import { useContext } from 'react'
 
 // Context
-import { FavoriteContext } from '@/context/CharContext'
+import { FavoriteContext } from '../context/CharContext'
 
 // Libs
 import { AiFillStar } from 'react-icons/ai'
